@@ -3,6 +3,10 @@
 #include"Division.hpp"
 // #include"MultVarDivision.hpp"
 
+using ring = mpq_class;
+using Mono = Monomial<ring>;
+using Poly = Polynomial<ring>;
+
 
 void test_order() {
 
@@ -119,17 +123,17 @@ void test_division_uni() {
 	std::vector<unsigned> x_to3{ 3 };
 	std::vector<unsigned> x_to4{ 4 };
 
-	Polynomial<mpq_class> poly2;
-	Polynomial<mpq_class> poly1;
+	Poly poly2;
+	Poly poly1;
 	
-	Monomial<mpq_class> mon1_1(1.0, constant);
-	Monomial<mpq_class> mon1_2(4.0, x_to1);
-	Monomial<mpq_class> mon1_3(4.0, x_to2);
-	Monomial<mpq_class> mon1_4(4.0, x_to3);
-	Monomial<mpq_class> mon1_5(4.0, x_to4);
+	Mono mon1_1(1.0, constant);
+	Mono mon1_2(4.0, x_to1);
+	Mono mon1_3(4.0, x_to2);
+	Mono mon1_4(4.0, x_to3);
+	Mono mon1_5(4.0, x_to4);
 
-	Monomial<mpq_class> mon2_1(1.0, constant);
-	Monomial<mpq_class> mon2_2(2.0, x_to1);
+	Mono mon2_1(1.0, constant);
+	Mono mon2_2(2.0, x_to1);
 
 
 	poly1.add(mon1_1);
@@ -158,19 +162,19 @@ void test_division_mult(){
 	std::vector<unsigned> z { 0, 0, 1 };
 	std::vector<unsigned> xyz { 1, 1, 1 };
 
-	Monomial<ring> mon1_1(1, constant);
-	Monomial<ring> mon1_2(1, x);
-	Monomial<ring> mon1_3(1, xyz);
+	Mono mon1_1(1, constant);
+	Mono mon1_2(1, x);
+	Mono mon1_3(1, xyz);
 
-	Monomial<ring> mon2_1(1, constant);
-	Monomial<ring> mon2_2(1, y);
+	Mono mon2_1(1, constant);
+	Mono mon2_2(1, y);
 
-	Monomial<ring> mon3_1(1, constant);
-	Monomial<ring> mon3_2(-1, z);
+	Mono mon3_1(1, constant);
+	Mono mon3_2(-1, z);
 
-	Polynomial<ring> poly1;
-	Polynomial<ring> poly2;
-	Polynomial<ring> poly3;
+	Poly poly1;
+	Poly poly2;
+	Poly poly3;
 
 	poly1.add(mon1_1);
 	poly1.add(mon1_2);
@@ -188,7 +192,7 @@ void test_division_mult(){
 	print(poly2);
 	print(poly3);
 
-	std::vector<Polynomial<ring>> divisors { poly2, poly3 };
+	std::vector<Poly> divisors { poly2, poly3 };
 	auto div = Division<ring>(poly1, divisors);
 
 }
