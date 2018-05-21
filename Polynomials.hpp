@@ -33,7 +33,7 @@ public:
 	}
 
 	ring coef;
-	std::vector<ring> exponents;
+	std::vector<unsigned> exponents;
 
 private:
 	template<class T>
@@ -88,10 +88,11 @@ public:
 template<class ring>
 const int lexico_order(const Monomial<ring> &lhs, const Monomial<ring> &rhs) {
 	//return 1 if lhs < rhs, -1 if lhs > rhs, 0 otherwise
+	int result = 0;
+
 	unsigned num_var = lhs.exponents.size();
 	assert(rhs.exponents.size() == num_var);
 	
-	int result = 0;
 	
 	for (unsigned i = 0; i < num_var; i++) {
 		if (rhs.exponents[i] > lhs.exponents[i]) {
@@ -114,6 +115,12 @@ template<class ring>
 bool operator==(const Monomial<ring> &lhs, const Monomial<ring> &rhs) {
 	return (lexico_order(lhs, rhs) == 0);
 }
+
+template<class ring>
+bool operator!=(const Monomial<ring> &lhs, const Monomial<ring> &rhs) {
+	return !(lexico_order(lhs, rhs) == 0);
+}
+
 
 template<class ring>
 bool operator<=(const Monomial<ring> &lhs, const Monomial<ring> &rhs) {
@@ -255,15 +262,23 @@ public:
 		}
 		return *this;
 	}
+	
+	//multiplication by Monomial
+	const Polynomial<ring> operator*(const Monomial<ring> &other) {
+		for (auto &mon: *this){
+			mon *= other;
+		}
+		return *this;
+	}
 
 	//multiplication by another polynomial
-	Polynomial<ring> operator*(Polynomial<ring> &other) {
+	const Polynomial<ring> operator*(const Polynomial<ring> &other) {
 		return this->naive_mult(other);
 	}
 
 private:
 	//multiplication by another polynomial(not optimal)
-	Polynomial<ring> naive_mult(Polynomial<ring> &other) {
+	const Polynomial<ring> naive_mult(const Polynomial<ring> &other) {
 		Monomial<ring> temp_mon;
 		Polynomial<ring> result;
 
