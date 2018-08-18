@@ -2,7 +2,6 @@
 #include"Polynomials.hpp"
 #include"Division.hpp"
 #include<iterator>
-// #include<cmath>
 
 template<class ring>
 ring ring_gcd(ring m, ring n) {
@@ -79,7 +78,7 @@ private:
                 }       
 
             }
-            // std::cout << basis.size() << "\t";
+            
             if (S.empty()){
                 break;
             }

@@ -21,20 +21,6 @@ int MultPolyOrder(Polynomial<ring> &lhs, Polynomial<ring> &rhs) {
 
 template<class ring>
 const bool reducible(const Polynomial<ring> &f, const Polynomial<ring> &g){
-	// auto lm_g = g.back();
-	
-	// for (auto &mon: f){
-	// 	bool mon_reducible = std::all_of(
-	// 		mon.exponents.begin(), 
-	// 		mon.exponents.end(),
-	// 		[iter = lm_g.exponents.begin()](ring e)mutable-> bool{ return e >= *(iter++); }
-	// 		);
-	// 	if (mon_reducible){
-	// 		return true;
-	// 	}
-	// }
-	// return false;
-	
 	auto iter = f.rbegin();
 	auto lt_g = g.back();
 	// finding reducible monomial in dividend
@@ -156,11 +142,6 @@ public:
 			num_var = poly.front().exponents.size();
 			remainder = dividend;
 			quotient = Polynomial<ring>();
-			// std::cout << "remainder: \n";
-			// print(remainder);
-			// std::cout << "divisor: \n";
-			// print(divisor);
-			// std::cout << "hi\n" << (remainder >= divisor) << "this will not be printed";
 			
 			while(remainder >= divisor){
 				if (!reducible(remainder, divisor)){ break; }
